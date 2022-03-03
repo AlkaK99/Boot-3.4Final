@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Log in with your account</title>
+</head>
+<body>
+
+<div>
+    <table border = "3">
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>LastName</th>
+            <th>Age</th>
+            <th>Password</th>
+            <th>Roles</th>
+        </tr>
+        <tr th:each="user, state : ${users}">
+            <td th:utext="${state.count}">Id</td>
+            <td th:utext="${user.getFirstname()}">Name</td>
+            <td th:utext="${user.getLastname()}">Lastname</td>
+            <td th:utext="${user.getAge()}">Age</td>
+            <td th:utext="${user.getPassword()}">Password</td>
+            <td>
+                <li th:each="role: ${user.getRoles()}" th:text="${role.getName()}"></li>
+            </td>
+
+            <td>
+                <form th:action="@{'/admin/edit/' + ${user.getId}}">
+                    <input type="submit" class="buttonEdit" value="Edit"/>
+                </form>
+            </td>
+            <td>
+                <form th:method="DELETE" th:action="@{'/admin/delete/' + ${user.getId}}">
+                    <input type="submit" class="buttonDelete" value="Delete"/>
+                </form>
+            </td>
+        </tr>
+    </table>
+    <a href="/">Главная</a>
+    <input type="button" value="Add"
+           onclick="window.location.href = '/admin/add'"/>
+    <br>
+    <button class="buttonLogout" onclick="window.location.href = '/logout';">Logout</button>
+
+</div>
+
+</body>
+</html>
