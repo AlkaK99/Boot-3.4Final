@@ -24,7 +24,7 @@ public class UserController {
     @GetMapping()
     public String index(Model model) {
         String name = SecurityContextHolder.getContext().getAuthentication().getName();
-        model.addAttribute("user", userService.findUserByName(name));
+        model.addAttribute("user", userService.findUserByUsername(name));
         return "user";
     }
 }

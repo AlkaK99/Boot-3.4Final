@@ -34,7 +34,7 @@ public class AdminController {
         String name = SecurityContextHolder.getContext().getAuthentication().getName();
         model.addAttribute("listUser", userService.listUser());
         model.addAttribute("roles", roleService.getAllRoles());
-        model.addAttribute("user", userService.findUserByName(name));
+        model.addAttribute("user", userService.findUserByUsername(name));
         return "adminList";
 
     }
