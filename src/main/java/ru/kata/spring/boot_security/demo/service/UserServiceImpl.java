@@ -1,12 +1,9 @@
 package ru.kata.spring.boot_security.demo.service;
 
-
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import ru.kata.spring.boot_security.demo.dao.UserRepository;
-import ru.kata.spring.boot_security.demo.model.Role;
 import ru.kata.spring.boot_security.demo.model.User;
 
 import java.util.List;
@@ -18,12 +15,14 @@ public class UserServiceImpl implements UserService{
 
 
 
-    @Autowired
     PasswordEncoder passwordEncoder;
 
-    @Autowired
     UserRepository userRepository;
 
+    public UserServiceImpl(PasswordEncoder passwordEncoder, UserRepository userRepository) {
+        this.passwordEncoder = passwordEncoder;
+        this.userRepository = userRepository;
+    }
 
     @Override
     public List<User> listUser() {
@@ -39,12 +38,6 @@ public class UserServiceImpl implements UserService{
     @Override
     public void deleteUser(Long id) {
         userRepository.delete(userRepository.findUserById(id));
-    }
-
-    @Override
-    public void updateUser(User user) {
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
-        userRepository.save(user);
     }
 
 

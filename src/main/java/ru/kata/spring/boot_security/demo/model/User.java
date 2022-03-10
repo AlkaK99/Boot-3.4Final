@@ -1,7 +1,7 @@
 package ru.kata.spring.boot_security.demo.model;
 
 
-import jdk.jfr.Unsigned;
+
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -120,7 +120,6 @@ public class User implements UserDetails {
 
         this.roles = roles;
     }
-
     public String rolesToString() {
         StringBuilder result = new StringBuilder();
         for (Role role : getRoles()) {
@@ -128,4 +127,5 @@ public class User implements UserDetails {
         }
         return result.substring(0, result.length()-1);
     }
+
 }
