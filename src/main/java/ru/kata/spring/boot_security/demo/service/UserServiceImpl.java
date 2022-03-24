@@ -30,13 +30,13 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public void addUser(User user) {
+    public void add(User user) {
         userRepository.save(user);
 
     }
 
     @Override
-    public void deleteUser(Long id) {
+    public void delete (Long id) {
         userRepository.delete(userRepository.findUserById(id));
     }
 

@@ -1,5 +1,6 @@
 package ru.kata.spring.boot_security.demo.configs;
 
+import com.fasterxml.jackson.datatype.hibernate4.Hibernate4Module;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -30,14 +31,19 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+
         http
                 .csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/admin**").hasRole("ADMIN")
+                .antMatchers("/login").permitAll()
+                .antMatchers("/api**").hasRole("ADMIN")
+                .antMatchers("/admin").hasRole("ADMIN")
                 .antMatchers("/user").hasAnyRole("ADMIN", "USER")
                 .anyRequest().authenticated()
                 .and()
-                .formLogin().successHandler(successUserHandler).permitAll()
+                .cors()
+                .and()
+                .formLogin().successHandler(successUserHandler)
                 .and()
                 .logout()
                 .permitAll();
@@ -48,5 +54,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
-
+    @Bean
+    public Hibernate4Module datatypeHibernateModule() {
+        return new Hibernate4Module();
+    }
 }

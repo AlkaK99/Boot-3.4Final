@@ -9,22 +9,18 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import ru.kata.spring.boot_security.demo.service.UserService;
 
 
-@RequestMapping ("/user")
 @Controller
-public class UserController {
+public class LoginController {
 
-    final
-    UserService userService;
-
-    public UserController(UserService userService) {
-        this.userService = userService;
+    @GetMapping("/admin")
+    public String adminPage() {
+        return "adminList";
     }
 
-
-    @GetMapping()
-    public String index(Model model) {
-        String name = SecurityContextHolder.getContext().getAuthentication().getName();
-        model.addAttribute("user", userService.findUserByUsername(name));
+    @GetMapping("/user")
+    public String userPage() {
         return "user";
     }
+
+
 }

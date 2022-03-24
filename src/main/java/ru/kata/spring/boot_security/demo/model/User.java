@@ -2,6 +2,8 @@ package ru.kata.spring.boot_security.demo.model;
 
 
 
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -24,7 +26,8 @@ public class User implements UserDetails {
     private String username;
     private String password;
 
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToMany(cascade = CascadeType.REFRESH)
+    @Fetch(FetchMode.JOIN)
     @JoinTable(
             name = "users_roles",
             joinColumns = @JoinColumn(name = "user_id"),
@@ -33,8 +36,6 @@ public class User implements UserDetails {
     private Set<Role> roles;
 
 
-    public User() {
-    }
 
 
     @Override
@@ -120,12 +121,6 @@ public class User implements UserDetails {
 
         this.roles = roles;
     }
-    public String rolesToString() {
-        StringBuilder result = new StringBuilder();
-        for (Role role : getRoles()) {
-            result.append(role.toString()).append(" ");
-        }
-        return result.substring(0, result.length()-1);
-    }
+
 
 }

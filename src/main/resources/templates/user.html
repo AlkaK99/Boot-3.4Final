@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
       lang="en">
 <head>
     <!-- Required meta tags -->
@@ -16,15 +17,8 @@
 <header>
     <!--    Header-->
     <div class="container-fluid">
-        <div class="row align-items-center bg-dark" style="height: 50px">
-            <div class="col text-nowrap text-light">
-                <b th:utext="${user.username}">...</b>
-                with roles:
-                <b th:utext="${user.rolesToString()}">...</b>
-            </div>
-            <div class="col text-right">
-                <a href="/logout" class="text-secondary">Logout</a>
-            </div>
+        <div class="userInfoBar row align-items-center bg-dark" style="height: 50px">
+
         </div>
     </div>
 </header>
@@ -34,39 +28,21 @@
             <!--            Sidebar-->
             <div class="col sidebar pt-3 bg-white" style="height:100vh">
                 <div class="list-group">
-                    <div sec:authorize="hasRole('ADMIN')"><a th:href="@{/admin}" class="list-group-item list-group-item-action">Admin</a></div>
+                    <div sec:authorize="hasRole('ADMIN')">
+                        <a th:href="@{/admin}" class="list-group-item list-group-item-action">Admin</a>
+                    </div>
                     <a th:href="@{/user}" class="list-group-item list-group-item-action active">User</a>
                 </div>
             </div>
-            <!--            User info-->
             <div class="col-10 bg-light pt-3" style="height:100vh">
                 <div class="container-fluid active">
                     <h2>User's info</h2>
                     <div class="row border bg-white pl-0">
                         <div class="col border bg-light">
-                            <p><h6> User`s info</User></h6>
+                            <p><h6>About user</h6>
                         </div>
-                        <table class="table table-hover">
-                            <thead class="thead-light">
-                            <tr>
-                                <th scope="col">ID</th>
-                                <th scope="col">Firstname</th>
-                                <th scope="col">Lastname</th>
-                                <th scope="col">Age</th>
-                                <th scope="col">Username</th>
-                                <th scope="col">Roles</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr>
-                                <td th:utext="${user.id}">...</td>
-                                <td th:utext="${user.firstname}">...</td>
-                                <td th:utext="${user.lastname}">...</td>
-                                <td th:utext="${user.age}">...</td>
-                                <td th:utext="${user.username}">...</td>
-                                <td th:utext="${user.rolesToString()}">...</td>
-                            </tr>
-                            </tbody>
+                        <table class="userInfoTable table table-hover">
+
                         </table>
                     </div>
                 </div>
@@ -76,6 +52,8 @@
 </section>
 <br/>
 
+
+<script src="../static/user.js"></script>
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
         integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
         crossorigin="anonymous"></script>
@@ -85,5 +63,6 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
         integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
         crossorigin="anonymous"></script>
+
 </body>
-</html>
+</html></html>
